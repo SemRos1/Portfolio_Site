@@ -1,0 +1,2 @@
+Het beginscherm is simpel
+De zwarte tekst moet komen te staan: "Klik op een willekeurige knop om door te gaan."

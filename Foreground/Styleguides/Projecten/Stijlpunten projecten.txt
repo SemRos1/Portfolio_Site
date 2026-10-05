@@ -1,0 +1,9 @@
+Gebruik voor titels lettergrootte 48
+Gebruik voor ondertitels lettergrootte 18
+Gebruik voor lopende tekst lettergrootte 12
+
+Zwarte lijnen zijn de kadrering van de tv
+Blauwe lijnen laten de plek voor afbeeldingen zien
+Een roze pijl laat scrollrichting zien
+groene tekst geeft weer waar tekst komt te staan
+stippel lijn groen geeft aan wat een tekstvak is en hoeft niet getekend te worden. 

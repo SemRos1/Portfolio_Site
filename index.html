@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEM ROS | Portfolio & Ontwerp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="app" class="stage-start">
+
+    <!-- Fixed 16:9 Aspect Background Container -->
+    <div class="bg-viewport">
+      <div class="bg-frame" id="bgFrame">
+
+        <!-- 1. Static Screen Backgrounds -->
+        <!-- Startscherm (Beginscherm) -->
+        <div class="bg-layer bg-start" id="bgStart" aria-hidden="false"></div>
+
+        <!-- Hoofdmenu -->
+        <div class="bg-layer bg-hoofdmenu" id="bgHoofdmenu" aria-hidden="true"></div>
+
+        <!-- Projecten Pagina -->
+        <div class="bg-layer bg-projects" id="bgProjects" aria-hidden="true"></div>
+
+        <!-- Over Mij Pagina -->
+        <div class="bg-layer bg-overmij" id="bgOverMij" aria-hidden="true"></div>
+
+        <!-- 2. Video Transitions (Forward & Reverse) -->
+        <!-- Start <-> Hoofdmenu -->
+        <video id="videoStartForward" class="bg-video" playsinline muted preload="auto">
+          <source src="Background/Hoofdmenu/Startscherm animation forward.mp4" type="video/mp4">
+        </video>
+        <video id="videoStartReverse" class="bg-video" playsinline muted preload="auto">
+          <source src="Background/Hoofdmenu/Startscherm animation reverse.mp4" type="video/mp4">
+        </video>
+
+        <!-- Hoofdmenu <-> Projects -->
+        <video id="videoProjectsForward" class="bg-video" playsinline muted preload="auto">
+          <source src="Background/Projects/Projects animatie voorwaarts.mp4" type="video/mp4">
+        </video>
+        <video id="videoProjectsReverse" class="bg-video" playsinline muted preload="auto">
+          <source src="Background/Projects/Projects animatie reverse.mp4" type="video/mp4">
+        </video>
+
+        <!-- Hoofdmenu <-> Over Mij -->
+        <video id="videoOverMijForward" class="bg-video" playsinline muted preload="auto">
+          <source src="Background/Over mij/Over mij animatie.mp4" type="video/mp4">
+        </video>
+        <video id="videoOverMijReverse" class="bg-video" playsinline muted preload="auto">
+          <source src="Background/Over mij/Over mij animatie reverse.mp4" type="video/mp4">
+        </video>
+
+        <!-- 3. Physical CRT TV Screen Portal (Active on Projects Page) -->
+        <div class="tv-screen-portal" id="tvScreenPortal" aria-hidden="true">
+          <div class="tv-screen-glass">
+
+            <!-- Dynamic Scrollable Media Feed inside CRT Screen -->
+            <div class="tv-media-scroll-feed" id="tvMediaScrollFeed" tabindex="0" role="region"
+              aria-label="Project media op televisiescherm">
+              <!-- Content injected dynamically via script.js -->
+            </div>
+
+            <!-- Authentic CRT Overlay & Physics Layers -->
+            <div class="tv-static-layer" id="tvStaticLayer"></div>
+            <div class="tv-scanlines"></div>
+            <div class="tv-window-glare"></div>
+            <div class="tv-tube-curvature"></div>
+
+            <!-- CRT On-Screen Display (OSD) -->
+            <div class="tv-osd">
+              <span class="tv-channel" id="tvChannelTag">CH 01 // DISCURSIVE</span>
+              <span class="tv-status" id="tvStatusTag">BROADCAST &#9654;</span>
+            </div>
+
+            <!-- Scroll Hint Indicator on TV -->
+            <div class="tv-scroll-hint" id="tvScrollHint">
+              <span>&#9660; SCROLL VOOR MEER BEELDEN</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Framed Portrait on Cupboard Door (Active on Over Mij Page) -->
+        <div class="overmij-portrait-portal" id="overMijPortraitPortal" aria-hidden="true">
+          <div class="portrait-frame">
+            <img src="Foreground/Over mij/Foto_Van_Mijzelf.jpg" alt="Portret van Sem Ros" class="portrait-image"
+              id="portraitImage">
+            <div class="portrait-glare"></div>
+            <div class="portrait-vignette"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Atmospheric Overlays & Spore Particles -->
+    <div class="vignette-overlay"></div>
+    <canvas id="sporeCanvas" class="spore-canvas"></canvas>
+
+    <!-- UI SCREENS FOREGROUND -->
+    <!-- Screen 1: Startscherm (Beginscherm) -->
+    <section class="screen-layer screen-start" id="screenStart" role="button" tabindex="0"
+      aria-label="Klik om door te gaan naar hoofdmenu">
+      <div class="start-content">
+        <p class="start-prompt" id="startPrompt">
+          <span class="prompt-bullet">•</span> Klik op een willekeurige knop om door te gaan.
+        </p>
+      </div>
+    </section>
+
+    <!-- Screen 2: Hoofdmenu -->
+    <section class="screen-layer screen-hoofdmenu" id="screenHoofdmenu" aria-hidden="true">
+      <div class="hoofdmenu-layout">
+        <!-- Brand watermark -->
+        <div class="hoofdmenu-brand">
+          <h1 class="brand-title">SEM ROS</h1>
+          <span class="brand-sub">EEN ONTWERPER DIE VIA ONCONVENTIONELE MEDIA ONVERTELDE VERHALEN TOT LEVEN BRENGT</span>
+        </div>
+
+        <!-- Buttons on the right side per Wireframe -->
+        <nav class="hoofdmenu-nav" aria-label="Hoofdmenu navigatie">
+          <button type="button" class="menu-btn menu-btn-projects" id="btnGoProjects" data-target="projects">
+            <span class="btn-index">01</span>
+            <span class="btn-label">Projects</span>
+            <span class="btn-arrow">&#10230;</span>
+          </button>
+          <button type="button" class="menu-btn menu-btn-about" id="btnGoAbout" data-target="overmij">
+            <span class="btn-index">02</span>
+            <span class="btn-label">About me</span>
+            <span class="btn-arrow">&#10230;</span>
+          </button>
+        </nav>
+
+        <div class="hoofdmenu-footer">
+          <button type="button" class="btn-subtle" id="btnHoofdmenuBack">
+            &#8592; Terug naar startscherm
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen 3: Projecten Pagina -->
+    <section class="screen-layer screen-projects" id="screenProjects" aria-hidden="true">
+      <div class="projects-layout">
+
+        <!-- Left Column: Navigation & Project Details -->
+        <div class="projects-left-panel">
+
+          <!-- Header / Breadcrumb -->
+          <div class="panel-header">
+            <span class="panel-category" id="projectsCategoryTag">GESELECTEERDE WERKEN // 2025 - 2026</span>
+            <div class="panel-actions">
+              <button type="button" class="back-btn" id="btnProjectsBack" aria-label="Terug naar vorig scherm">
+                <span class="back-arrow">&#8592;</span> <span id="btnProjectsBackText">TERUG</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- View A: Projecten Overzicht (Lijst om door te scrollen) -->
+          <div class="projects-view projects-list-view active" id="projectsListView">
+            <div class="list-heading">
+              <h2 class="section-title">PROJECTEN</h2>
+              <p class="section-subtitle">Kies een project om de beelden op het televisiescherm te laden.</p>
+            </div>
+            <div class="projects-scroll-list" id="projectsScrollList" tabindex="0">
+              <!-- Cards dynamically rendered from projects-config.js -->
+            </div>
+          </div>
+
+          <!-- View B: Project Detail Weergave (Geactiveerd bij klikken op project) -->
+          <div class="projects-view projects-detail-view" id="projectsDetailView">
+            <div class="detail-header">
+              <span class="detail-number" id="detailProjectNumber">PROJECT 01</span>
+              <h2 class="detail-title" id="detailProjectTitle">Titel</h2>
+              <h3 class="detail-subtitle" id="detailProjectSubtitle">Ondertitel</h3>
+            </div>
+            <div class="detail-body-scroll" id="detailBodyScroll" tabindex="0">
+              <div class="detail-text" id="detailProjectDescription">Lopende tekst beschrijving...</div>
+            </div>
+
+            <div class="detail-footer">
+              <button type="button" class="menu-btn menu-btn-return" id="btnBackToOverview">
+                &#8592; Alle projecten bekijken
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- Right Column: Scrollable Image Panel -->
+        <div class="projects-right-panel" id="projectsRightPanel">
+          <!-- Standby / Media feed rendered here by JS -->
+          <div class="projects-image-feed" id="projectsImageFeed">
+            <div class="tv-standby-placeholder">
+              <p class="tv-standby-text">SELECTEER EEN PROJECT OM BEELDEN TE LADEN</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Screen 4: Over Mij Pagina -->
+    <section class="screen-layer screen-overmij" id="screenOverMij" aria-hidden="true">
+      <div class="overmij-layout">
+
+        <!-- Left area: Cupboard Door Frame Spacer (Portal handles visual) -->
+        <div class="overmij-left-spacer" aria-hidden="true"></div>
+
+        <!-- Right Column: Biography & Information conform Wireframe -->
+        <div class="overmij-right-panel">
+          <div class="panel-header">
+            <span class="panel-category">BIOGRAFIE & ACHTERGROND</span>
+            <button type="button" class="back-btn" id="btnOverMijBack" aria-label="Terug naar hoofdmenu">
+              <span class="back-arrow">&#8592;</span> TERUG
+            </button>
+          </div>
+
+          <div class="overmij-content-scroll" tabindex="0">
+            <h2 class="overmij-title">Sem Ros</h2>
+            <h3 class="overmij-subtitle">Ontwerper & Verhalen verteller</h3>
+
+            <div class="overmij-body">
+              <p class="lead-text">
+Een ontwerper die via onconventionele ontwerpen onvertelde verhalen tot leven brengt.              </p>
+              <p>
+                Ik ben Sem Ros, een ontwerper die verhalen centraal laat staan binnen mijn ontwerperschap. Door middel van vervreemding en dystopische beelden probeer ik de onvertelde verhalen van mensen onder de aandacht te brengen.
+              </p>
+              <p>
+                Mijn werk overbrugt de afstand die mensen tot elkaar voelen binnen de maatschappij door elkaars situatie voelbaar te maken, het zorgt er voor dat het beeld dat mensen bij elkaar komen.
+              </p>
+            </div>
+
+            <div class="overmij-disciplines">
+              <h4 class="disciplines-heading">KERNFOCUS</h4>
+              <ul class="disciplines-list">
+                <li>• Verhalend ontwerp</li>
+                <li>• Vervreemde belevingen </li>
+                <li>• Onconventionele media</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="overmij-footer">
+            <button type="button" class="menu-btn menu-btn-return" id="btnOverMijReturn">
+              &#8592; Terug naar hoofdmenu
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="projects-config.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
