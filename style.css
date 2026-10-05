@@ -154,7 +154,11 @@ html, body {
 }
 
 .bg-hoofdmenu {
+<<<<<<< HEAD
   background-image: url('Background/Hoofdmenu/Hoofdmenu_static.png');
+=======
+  background-image: url('Background/Beginscherm/Start_Visitekaartje.png');
+>>>>>>> 7ad4ef38f24f028edc4976a422d4474a537759bc
 }
 
 .bg-projects {
